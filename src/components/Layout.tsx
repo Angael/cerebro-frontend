@@ -6,11 +6,11 @@ import { Box, BoxProps, useMediaQuery } from '@mui/material';
 import { DRAWER_WIDTH } from '../utils/consts';
 import { useLocation } from 'react-router';
 
-interface IProps extends BoxProps {
+interface IProps {
   children: React.ReactNode;
 }
 
-const Layout = ({ children, ...boxProps }: IProps) => {
+const Layout = ({ children }: IProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
   const showStaticDrawer = useMediaQuery((theme) =>
@@ -25,8 +25,17 @@ const Layout = ({ children, ...boxProps }: IProps) => {
     setOpen(false);
   }, [showStaticDrawer, history.pathname]);
 
+  const paddingLeft = showStaticDrawer ? DRAWER_WIDTH + 'px' : 0;
+
   return (
-    <div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: `column`,
+        minHeight: '100vh',
+        paddingLeft,
+      }}
+    >
       <nav>
         <Navbar
           showStaticDrawer={showStaticDrawer}
@@ -38,16 +47,8 @@ const Layout = ({ children, ...boxProps }: IProps) => {
           onClose={() => setOpen(false)}
         />
       </nav>
-      <Box
-        sx={{
-          paddingTop: 10,
-          paddingLeft: showStaticDrawer ? DRAWER_WIDTH + 'px' : 0,
-          minHeight: '100vh',
-        }}
-      >
-        <Box {...boxProps}>{children}</Box>
-      </Box>
-    </div>
+      {children}
+    </Box>
   );
 };
 

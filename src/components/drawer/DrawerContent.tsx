@@ -9,6 +9,7 @@ import {
   VARIANTS,
 } from '../../framer/transitions';
 import { NavLink } from 'react-router-dom';
+import LoginStatus from './LoginStatus';
 
 interface IProps {}
 
@@ -22,16 +23,18 @@ const DrawerContent = (props: IProps) => {
   });
 
   return (
-    <Box p={2}>
-      <DrawerLogo />
-      {/*<Button onClick={() => so((s) => !s)}>toggle</Button>*/}
+    <Box sx={{ p: 2, flex: 1 }}>
       <motion.div
         initial="collapsed"
         animate="open"
         variants={VARIANTS.drawer}
         transition={TRANSITIONS.drawer}
       >
-        <Stack direction={'column'} alignContent={'start'}>
+        <DrawerLogo />
+        <Box my={1}>
+          <LoginStatus />
+        </Box>
+        <Stack direction={'column'} alignContent={'start'} gap={0.5}>
           <Button component={NavLink} to={'/home'}>
             Home
           </Button>

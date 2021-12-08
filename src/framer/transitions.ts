@@ -9,6 +9,10 @@ export const VARIANTS = {
     collapsed: { opacity: 0, width: 0 },
     open: { opacity: 1, width: 'auto' },
   },
+  collapseParent: {
+    collapsed: { opacity: 0, height: 0, y: -24, scale: 0.8 },
+    open: { opacity: 1, height: 'auto', y: 0, scale: 1 },
+  },
 };
 
 export const TRANSITIONS = {

@@ -10,21 +10,18 @@ interface IProps {
 }
 
 const Container = styled.div`
-  position: fixed;
-  top: 8px;
-  left: 8px;
+  position: sticky;
+  padding: 8px;
 `;
 
 const Navbar = ({ showStaticDrawer, onToggleDrawer }: IProps) => {
-  return (
+  return !showStaticDrawer ? (
     <Container>
-      {!showStaticDrawer && (
-        <IconButton onClick={onToggleDrawer}>
-          <Icon path={mdiMenu} size={1} />
-        </IconButton>
-      )}
+      <IconButton onClick={onToggleDrawer}>
+        <Icon path={mdiMenu} size={1} />
+      </IconButton>
     </Container>
-  );
+  ) : null;
 };
 
 export default Navbar;

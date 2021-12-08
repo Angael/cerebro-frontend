@@ -12,24 +12,15 @@ const DrawerLogo = () => {
   return (
     <div>
       <Box
-        pt={3}
-        pb={5}
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           gap: 1,
+          py: 4,
         }}
       >
-        <motion.div
-          style={{ display: 'flex', alignItems: 'center' }}
-          initial="collapsed"
-          animate="open"
-          variants={VARIANTS.drawer}
-          transition={TRANSITIONS.drawer}
-        >
-          <Icon path={mdiCloud} size={2.5} color={theme.palette.primary.main} />
-        </motion.div>
+        <Icon path={mdiCloud} size={2.5} color={theme.palette.primary.main} />
         <Typography
           variant="h3"
           color="textSecondary"
