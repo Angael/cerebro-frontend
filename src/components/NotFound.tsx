@@ -14,23 +14,19 @@ const NotFound = (props: IProps) => {
     <Container
       maxWidth="md"
       sx={{
-        flex: 1,
         display: 'flex',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         alignItems: 'center',
         gap: 3,
+        m: 5,
       }}
     >
-      <Icon path={mdiAlert} size={2.5} color={theme.palette.warning.main} />
       <Box component="header">
-        <Typography variant="h1" color="textSecondary">
-          <Typography
-            variant="h1"
-            sx={{ color: 'warning.main', display: 'inline' }}
-          >
+        <Typography variant="h2" color="textSecondary">
+          <Box display="span" sx={{ color: 'warning.main', display: 'inline' }}>
             404
-          </Typography>{' '}
-          - Page not found
+          </Box>{' '}
+          Page not found
         </Typography>
       </Box>
     </Container>

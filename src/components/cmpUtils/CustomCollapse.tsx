@@ -1,13 +1,13 @@
 import React, { ReactNode } from 'react';
 import { TRANSITIONS, VARIANTS } from '../../framer/transitions';
-import { motion } from 'framer-motion';
+import { motion, MotionProps } from 'framer-motion';
 
-interface IProps {
+interface IProps extends MotionProps {
   children: ReactNode;
   isOpen: boolean;
 }
 
-const CustomCollapse = ({ children, isOpen }: IProps) => {
+const CustomCollapse = ({ children, isOpen, ...props }: IProps) => {
   const current = isOpen ? 'open' : 'collapsed';
   return (
     <motion.div
@@ -15,6 +15,7 @@ const CustomCollapse = ({ children, isOpen }: IProps) => {
       animate={current}
       variants={VARIANTS.collapseParent}
       transition={TRANSITIONS.drawer}
+      {...props}
     >
       {children}
     </motion.div>

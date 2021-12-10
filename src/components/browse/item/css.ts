@@ -10,13 +10,12 @@ export const GridItem = styled.div`
 export const ItemContainer = styled(motion.article)`
   width: 100%;
   height: 100%;
-  padding: 16px;
 
   ${GridItem}.selected > & {
     position: fixed;
     top: 0;
     left: 0;
-    top: 0;
+    bottom: 0;
     right: 0;
 
     z-index: 1200;
@@ -28,10 +27,7 @@ export const ThumbnailContainer = styled(motion.div)`
 `;
 
 export const Thumbnail = styled(motion.img)`
-  position: absolute;
   display: block;
   margin: auto;
-  width: 100%;
-  max-height: 100vh;
   pointer-events: none;
 `;

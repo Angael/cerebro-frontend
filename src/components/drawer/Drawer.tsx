@@ -1,7 +1,6 @@
 import React from 'react';
 import { Drawer as MuiDrawer } from '@mui/material';
 import DrawerContent from './DrawerContent';
-import MHidden from '../cmpUtils/MHidden';
 import { DRAWER_WIDTH } from '../../utils/consts';
 
 interface IProps {

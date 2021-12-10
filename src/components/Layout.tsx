@@ -19,7 +19,6 @@ const Layout = ({ children }: IProps) => {
   );
 
   const history = useLocation();
-  console.log(history);
 
   useEffect(() => {
     setOpen(false);

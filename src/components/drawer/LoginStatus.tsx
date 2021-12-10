@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import CustomCollapse from '../cmpUtils/CustomCollapse';
 import Icon from '@mdi/react';
 import { mdiLogout } from '@mdi/js';
+import { useStore } from 'effector-react';
+import { $auth, AuthState } from '../../store/auth/$auth';
+import { logout } from '../../store/auth/authActions';
 
 interface IProps {}
 
 const LoginStatus = (props: IProps) => {
-  const [l, sl] = useState(false);
+  const auth = useStore($auth);
 
-  const username = 'Angeal98';
-  const email = 'krzysztofwidacki@gmail.com';
-
-  useEffect(() => {
-    setTimeout(() => sl(true), 1000);
-  }, []);
+  const { state, email } = auth;
 
   return (
-    <CustomCollapse isOpen={l}>
+    <CustomCollapse isOpen={state === AuthState.loggedIn}>
       <Box
         sx={{
           borderRadius: 1.5,
@@ -37,8 +35,8 @@ const LoginStatus = (props: IProps) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="body1">{username}</Typography>
-          <IconButton>
+          <Typography variant="body1">{email}</Typography>
+          <IconButton onClick={logout}>
             <Icon path={mdiLogout} size={1} />
           </IconButton>
         </Stack>

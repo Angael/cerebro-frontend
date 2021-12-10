@@ -1,3 +1,5 @@
+import { Variants } from 'framer-motion';
+
 export const transitionSpring = { type: 'spring', stiffness: 70, damping: 15 };
 
 export const VARIANTS = {
@@ -10,9 +12,15 @@ export const VARIANTS = {
     open: { opacity: 1, width: 'auto' },
   },
   collapseParent: {
-    collapsed: { opacity: 0, height: 0, y: -24, scale: 0.8 },
-    open: { opacity: 1, height: 'auto', y: 0, scale: 1 },
-  },
+    collapsed: {
+      opacity: 0,
+      height: 0,
+      y: -24,
+      scale: 0.8,
+      pointerEvents: 'none',
+    },
+    open: { opacity: 1, height: 'auto', y: 0, scale: 1, pointerEvents: 'all' },
+  } as Variants, // hack because pointerEvents works, but ts doesnt work without "as" keyword,
 };
 
 export const TRANSITIONS = {

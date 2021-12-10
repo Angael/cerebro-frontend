@@ -8,6 +8,8 @@ import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
 import Layout from './components/Layout';
 
+import './store/firebase';
+
 function App() {
   return (
     <ThemeConfig>
