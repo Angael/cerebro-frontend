@@ -19,6 +19,8 @@ import { useStore } from 'effector-react';
 import { $auth, AuthState } from '../../store/auth/$auth';
 import { useNavigate } from 'react-router';
 import CustomCollapse from '../cmpUtils/CustomCollapse';
+import { authErrorMap } from './authErrorMap';
+import AuthError from './AuthError';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,7 +28,8 @@ const Login = () => {
   const { state } = auth;
   const isLoggedIn = state === AuthState.loggedIn;
 
-  const [err, setErr] = useState<string | null>(null);
+  const [err1, setErr1] = useState<string | null>(null);
+  const [err2, setErr2] = useState<string | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
 
   // register email and passwords
@@ -39,18 +42,20 @@ const Login = () => {
   const [p3, setP3] = useState<string>('');
 
   const handleRegister = () => {
+    setErr1(null);
     setFetching(true);
     register(e1, p1)
       .then(() => navigate('/home'))
-      .catch(setErr)
+      .catch((e) => setErr1(e.code))
       .finally(() => setFetching(false));
   };
 
   const handleLogin = () => {
+    setErr2(null);
     setFetching(true);
     logIn(e2, p3)
       .then(() => navigate('/home'))
-      .catch(setErr)
+      .catch((e) => setErr2(e.code))
       .finally(() => setFetching(false));
   };
 
@@ -58,7 +63,7 @@ const Login = () => {
   const passwordsMatch = p1 === p2;
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth='md'>
       <PageHeader
         icon={
           <Icon
@@ -67,73 +72,78 @@ const Login = () => {
             color={useTheme().palette.primary.main}
           />
         }
-        h1="Login"
-        caption="Sign in or sign up for an account here!"
+        h1='Login'
+        caption='Sign in or sign up for an account here!'
       />
 
       <Divider sx={{ my: 4 }} />
-      <CustomCollapse isOpen={!!err}>
-        <Alert severity="error">Wystąpił błąd.</Alert>
-      </CustomCollapse>
+
       <CustomCollapse isOpen={isLoggedIn}>
-        <Typography variant="h2">You are logged in!</Typography>
-        <Typography variant="caption">Why are you still here?</Typography>
+        <Typography variant='h2'>You are logged in!</Typography>
+        <Typography variant='caption'>Why are you still here?</Typography>
       </CustomCollapse>
       <CustomCollapse isOpen={!isLoggedIn}>
         <Grid container>
           <Grid item xs={12} md={6}>
             <Stack
-              direction="column"
+              direction='column'
               sx={{ gap: 2, alignItems: 'start', m: 3 }}
             >
-              <Typography variant="h3">Register</Typography>
+              <Typography variant='h3'>Register</Typography>
               <TextField
-                name="email"
-                label="Email"
-                type="email"
+                name='email'
+                label='Email'
+                type='email'
                 onChange={(e) => setE1(e.target.value)}
               />
               <TextField
-                label="Password"
-                type="password"
+                label='Password'
+                type='password'
                 onChange={(e) => setP1(e.target.value)}
               />
               <TextField
-                label="Repeat password"
-                type="password"
+                label='Repeat password'
+                type='password'
                 onChange={(e) => setP2(e.target.value)}
                 helperText={!passwordsMatch ? "Passwords don't match" : ''}
               />
               <LoadingButton
+                variant='outlined'
                 onClick={handleRegister}
                 loading={fetching}
                 disabled={!passwordsMatch}
               >
                 Create account
               </LoadingButton>
+              <AuthError error={err1} />
             </Stack>
           </Grid>
           <Grid item xs={12} md={6}>
             <Stack
-              direction="column"
+              direction='column'
               sx={{ gap: 2, alignItems: 'start', m: 3 }}
             >
-              <Typography variant="h3">Login</Typography>
+              <Typography variant='h3'>Login</Typography>
               <TextField
-                label="Email"
-                name="email"
-                type="email"
+                label='Email'
+                name='email'
+                type='email'
                 onChange={(e) => setE2(e.target.value)}
               />
               <TextField
-                label="Password"
-                name="password"
-                type="password"
+                label='Password'
+                name='password'
+                type='password'
                 onChange={(e) => setP3(e.target.value)}
               />
-              <LoadingButton onClick={handleLogin} loading={fetching}>
+              <LoadingButton
+                variant='outlined'
+                onClick={handleLogin}
+                loading={fetching}
+              >
                 Login
               </LoadingButton>
+              <AuthError error={err2} />
             </Stack>
           </Grid>
         </Grid>
