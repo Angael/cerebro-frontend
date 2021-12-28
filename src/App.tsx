@@ -9,6 +9,7 @@ import GlobalStyles from './theme/globalStyles';
 import Layout from './components/Layout';
 
 import './store/firebase';
+import AnalyticsComponent from './components/analytics/AnalyticsComponent';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Layout>
           <Router />
         </Layout>
+        <AnalyticsComponent />
       </BrowserRouter>
       <GlobalStyles />
     </ThemeConfig>

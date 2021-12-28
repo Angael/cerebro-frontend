@@ -5,12 +5,14 @@ import { mdiFolder } from '@mdi/js';
 import PageHeader from '../cmpUtils/PageHeader';
 import { useTheme } from '@mui/material/styles';
 import ItemGrid from './item-grid/ItemGrid';
+import AddFab from '../add/AddFAB';
 
 interface IProps {}
 
 const Browse = (props: IProps) => {
   return (
-    <Container maxWidth="md">
+    <Container maxWidth='md'>
+      <AddFab />
       <PageHeader
         icon={
           <Icon
@@ -19,8 +21,8 @@ const Browse = (props: IProps) => {
             color={useTheme().palette.primary.main}
           />
         }
-        h1="Browse"
-        caption="Videos, photos, websites, notes"
+        h1='Browse'
+        caption='Videos, photos, websites, notes'
       />
       <ItemGrid />
     </Container>
