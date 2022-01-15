@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { $auth } from '../store/auth/$auth';
 
-const baseURL = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:3000/'
-  : 'https://api.widacki.me/';
+const baseURL =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/'
+    : 'https://api.widacki.me/';
 
 export const API = axios.create({
   timeout: 10000,
@@ -11,3 +13,25 @@ export const API = axios.create({
   },
   baseURL,
 });
+
+const absUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
+const isAbsoluteUrl = (url: string) => absUrlRegex.test(url);
+
+API.interceptors.request.use(
+  (request) => {
+    const { token } = $auth.getState();
+
+    if (request && token) {
+      if (isAbsoluteUrl(request.url || '')) {
+        return request;
+      } else if (request.headers) {
+        request.headers.Authorization = 'Bearer ' + token;
+      }
+    }
+    return request;
+  },
+  (error) => error,
+);
+
+// @ts-ignore
+window.API = API;

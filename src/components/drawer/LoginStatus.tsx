@@ -12,7 +12,7 @@ interface IProps {}
 const LoginStatus = (props: IProps) => {
   const auth = useStore($auth);
 
-  const { state, email } = auth;
+  const { state, user } = auth;
 
   return (
     <CustomCollapse isOpen={state === AuthState.loggedIn}>
@@ -31,11 +31,11 @@ const LoginStatus = (props: IProps) => {
         }}
       >
         <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
+          direction='row'
+          justifyContent='space-between'
+          alignItems='center'
         >
-          <Typography variant="body1">{email}</Typography>
+          <Typography variant='body1'>{user?.email}</Typography>
           <IconButton onClick={logout}>
             <Icon path={mdiLogout} size={1} />
           </IconButton>

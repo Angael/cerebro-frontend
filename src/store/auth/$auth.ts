@@ -1,5 +1,10 @@
 import { createStore, createApi } from 'effector';
-import { onAuthStateChanged } from 'firebase/auth';
+import {
+  onAuthStateChanged,
+  onIdTokenChanged,
+  getIdToken,
+  User,
+} from 'firebase/auth';
 import { auth } from '../firebase';
 
 export enum AuthState {
@@ -8,15 +13,13 @@ export enum AuthState {
 }
 
 interface IAuth {
-  uid: string | null;
-  email: string | null;
+  user: User | null;
   token: string | null;
   state: AuthState;
 }
 
 export const $auth = createStore<IAuth>({
-  uid: null,
-  email: null,
+  user: null, // uid and email are in user
   token: null,
   state: AuthState.loggedOut,
 });
@@ -28,24 +31,48 @@ export const authApi = createApi($auth, {
     state: AuthState.loggedIn,
   }),
   logout: (_s) => ({
-    uid: null,
-    email: null,
+    user: null,
     token: null,
     state: AuthState.loggedOut,
   }),
 });
 
-onAuthStateChanged(auth, async (user) => {
+const updateAuthStore = async (user: User | null) => {
   if (user) {
     const token = await user.getIdToken();
 
-    const { uid, email } = user;
     authApi.login({
-      uid,
-      email,
+      user,
       token,
     });
   } else {
     authApi.logout();
   }
-});
+};
+
+onAuthStateChanged(auth, updateAuthStore);
+
+onIdTokenChanged(auth, updateAuthStore);
+
+const twentyMinutes = 20 * 60 * 1000;
+
+// https://github.com/firebase/firebaseui-web/issues/142
+setInterval(async () => {
+  const user = $auth.getState().user;
+
+  if (user) {
+    try {
+      const newToken = await getIdToken(user, true);
+
+      authApi.login({
+        user,
+        token: newToken,
+      });
+
+      console.log('Refreshed token');
+    } catch (e) {
+      console.error('Failed to refresh token');
+      console.error(e);
+    }
+  }
+}, twentyMinutes);
