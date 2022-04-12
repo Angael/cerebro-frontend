@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import { ExtendedFile } from '../../../interfaces/extendedFile';
+import { ExtendedFile } from '../../../model/extendedFile';
 import { Box, Typography } from '@mui/material';
 
 interface IProps {

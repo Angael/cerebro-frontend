@@ -1,49 +1,32 @@
-import React, { useEffect } from 'react';
-import { GridItem, ItemContainer, Thumbnail, ThumbnailContainer } from './css';
-import { useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { transitionSpring } from '../../../framer/transitions';
+import React from 'react';
+import {
+  ItemContainer,
+  Thumbnail,
+  ThumbnailContainer,
+  TitleContainer,
+} from './css';
+import { IFrontItem } from '../../../model/IFrontItem';
+import { Typography } from '@mui/material';
 
 interface IProps {
-  selected: boolean;
-  thumbnailSrc: string;
+  item: IFrontItem;
   onClick: () => void;
 }
 
-const Item = ({ selected, thumbnailSrc, onClick }: IProps) => {
-  const zIndex = useSpring(selected ? 3000 : 0, transitionSpring);
-  const x = useMotionValue(0);
-  const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0]);
-
-  useEffect(() => {
-    zIndex.set(selected ? 3000 : 0);
-  }, [selected]);
+const Item = ({ item, onClick }: IProps) => {
+  const thumbnailSrc = item.thumbnails[0]?.url ?? item.fileData?.url ?? '';
 
   return (
-    <GridItem className={selected ? 'selected' : ''}>
-      <ItemContainer
-        onClick={onClick}
-        style={{ zIndex, padding: 16, borderRadius: 12 }}
-        layout
-      >
-        <ThumbnailContainer
-          drag={selected ? undefined : 'x'}
-          style={{
-            x,
-            opacity,
-            overflow: 'hidden',
-            height: '100%',
-            width: '100%',
-            borderRadius: 12,
-          }}
-          dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-          whileHover={{ scale: !selected ? 1.04 : 1 }}
-          whileTap={{ scale: !selected ? 0.96 : 1 }}
-          layout
-        >
-          <Thumbnail src={thumbnailSrc} layout />
-        </ThumbnailContainer>
-      </ItemContainer>
-    </GridItem>
+    <ItemContainer onClick={onClick}>
+      <ThumbnailContainer>
+        <Thumbnail src={thumbnailSrc} />
+      </ThumbnailContainer>
+      <TitleContainer>
+        <Typography variant='body2' m={1}>
+          {item.fileData?.filename}
+        </Typography>
+      </TitleContainer>
+    </ItemContainer>
   );
 };
 

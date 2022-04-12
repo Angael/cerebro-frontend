@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Drawer from './drawer/Drawer';
 import Navbar from './navbar/Navbar';
 import { Box, BoxProps, useMediaQuery } from '@mui/material';

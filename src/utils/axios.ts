@@ -33,5 +33,7 @@ API.interceptors.request.use(
   (error) => error,
 );
 
-// @ts-ignore
-window.API = API;
+if (process.env.NODE_ENV === 'development') {
+  // @ts-ignore
+  window.API = API;
+}

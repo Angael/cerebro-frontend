@@ -7,10 +7,7 @@ import {
   styled,
   CircularProgressProps,
 } from '@mui/material';
-import {
-  ExtendedFile,
-  UploadStatusEnum,
-} from '../../../interfaces/extendedFile';
+import { ExtendedFile, UploadStatusEnum } from '../../../model/extendedFile';
 
 const Container = styled('div')(({ theme }) => ({
   position: 'relative',

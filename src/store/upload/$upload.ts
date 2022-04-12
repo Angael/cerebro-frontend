@@ -1,6 +1,6 @@
 import { createApi, createStore } from 'effector';
 import PQueue from 'p-queue';
-import { ExtendedFile, UploadStatusEnum } from '../../interfaces/extendedFile';
+import { ExtendedFile, UploadStatusEnum } from '../../model/extendedFile';
 
 interface IUploadStore {
   files: ExtendedFile[];

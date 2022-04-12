@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExtendedFile } from '../../../interfaces/extendedFile';
+import { ExtendedFile } from '../../../model/extendedFile';
 import FilePreview from './FilePreview';
 import { Box, styled } from '@mui/material';
 import FilesStats from './FilesStats';

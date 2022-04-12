@@ -1,6 +1,6 @@
 import { API } from '../../utils/axios';
 
-import { ExtendedFile, UploadStatusEnum } from '../../interfaces/extendedFile';
+import { ExtendedFile, UploadStatusEnum } from '../../model/extendedFile';
 import { uploadApi } from './$upload';
 
 /**
@@ -33,7 +33,7 @@ export const API_uploadFile = ({ file }: IOptions) => {
   const formData = new FormData();
   formData.append('file', file.file);
 
-  return API.post('/fs/upload/file', formData, {
+  return API.post('/items/upload/file', formData, {
     onUploadProgress: onUploadProgress(file),
     timeout: Infinity,
     headers: {

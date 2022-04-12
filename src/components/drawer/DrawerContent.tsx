@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Button, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useTheme } from '@mui/material/styles';
-import DrawerLogo from './DrawerLogo';
-import {
-  TRANSITIONS,
-  transitionSpring,
-  VARIANTS,
-} from '../../framer/transitions';
-import { NavLink } from 'react-router-dom';
-import LoginStatus from './LoginStatus';
 import { useStore } from 'effector-react';
+import { NavLink } from 'react-router-dom';
+
+import DrawerLogo from './DrawerLogo';
+import { TRANSITIONS, VARIANTS } from '../../framer/transitions';
+import LoginStatus from './LoginStatus';
 import { $auth, AuthState } from '../../store/auth/$auth';
 import CustomCollapse from '../cmpUtils/CustomCollapse';
 
@@ -25,12 +21,6 @@ interface IProps {}
 const DrawerContent = (props: IProps) => {
   const { state } = useStore($auth);
   const isLoggedIn = state === AuthState.loggedIn;
-
-  const theme = useTheme();
-  useEffect(() => {
-    // @ts-ignore
-    window.theme = theme;
-  });
 
   return (
     <Box sx={{ p: 2, flex: 1 }}>

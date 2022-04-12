@@ -30,13 +30,14 @@ export default function ThemeConfig({ children }) {
       shadows,
       customShadows,
     }),
-    []
+    [],
   );
 
   const theme = createTheme(themeOptions);
 
-  // TODO possibly overwriting some dark/light theme config
-  window.theme = theme;
+  if (process.env.NODE_ENV === 'development') {
+    window.theme = theme;
+  }
   theme.components = componentsOverride(theme);
 
   return (

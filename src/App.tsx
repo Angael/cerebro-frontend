@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { BrowserRouter } from 'react-router-dom';
-import logo from './logo.svg';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 import './App.css';
 import Router from './components/Router';
 import ThemeConfig from './theme';
@@ -11,16 +11,20 @@ import Layout from './components/Layout';
 import './store/firebase';
 import AnalyticsComponent from './components/analytics/AnalyticsComponent';
 
+export const queryClient = new QueryClient();
+
 function App() {
   return (
     <ThemeConfig>
-      <BrowserRouter>
-        <Layout>
-          <Router />
-        </Layout>
-        <AnalyticsComponent />
-      </BrowserRouter>
-      <GlobalStyles />
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Layout>
+            <Router />
+          </Layout>
+          <AnalyticsComponent />
+        </BrowserRouter>
+        <GlobalStyles />
+      </QueryClientProvider>
     </ThemeConfig>
   );
 }

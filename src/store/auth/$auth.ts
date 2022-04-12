@@ -72,6 +72,7 @@ setInterval(async () => {
       console.log('Refreshed token');
     } catch (e) {
       console.error('Failed to refresh token');
+      authApi.logout();
       console.error(e);
     }
   }

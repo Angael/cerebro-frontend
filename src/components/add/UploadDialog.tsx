@@ -1,6 +1,6 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
+import { useStore } from 'effector-react';
 import {
   Box,
   Button,
@@ -9,11 +9,12 @@ import {
   DialogContent,
   DialogTitle,
 } from '@mui/material';
+
 import FilesPreview from './files-preview/FilesPreview';
-import { ExtendedFile, UploadStatusEnum } from '../../interfaces/extendedFile';
-import { useStore } from 'effector-react';
+import { ExtendedFile, UploadStatusEnum } from '../../model/extendedFile';
 import { $upload, uploadApi, uploadQueue } from '../../store/upload/$upload';
 import { API_uploadFile } from '../../store/upload/uploadActions';
+import { queryClient } from '../../App';
 
 interface IProps {
   open: boolean;
@@ -48,6 +49,10 @@ const UploadDialog = ({ open = false, onClose }: IProps) => {
   const handleUpload = () => {
     upload.files.forEach((file) => {
       uploadQueue.add(() => API_uploadFile({ file, dir: '', private: false }));
+    });
+
+    uploadQueue.onEmpty().then(() => {
+      queryClient.invalidateQueries('items');
     });
   };
 
