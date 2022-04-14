@@ -9,6 +9,7 @@ import AddFab from '../add/AddFAB';
 import { useQuery } from 'react-query';
 import { API } from '../../utils/axios';
 import { IFrontItem } from '../../model/IFrontItem';
+import { useNavigate } from 'react-router';
 
 interface IProps {}
 
@@ -18,15 +19,12 @@ const fetchItems = async () => {
 };
 
 const Browse = (props: IProps) => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  console.log({ selectedIndex });
+  const navigate = useNavigate();
 
   const items = useQuery('items', fetchItems, { refetchOnWindowFocus: false });
 
   const onSelectItem = (id: number) => {
-    setSelectedIndex(selectedIndex === id ? null : id);
-    // TODO: Router navigate to /item/:id
-    console.log('selecting id', id);
+    navigate(`/item/${id}`);
   };
 
   return (

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { ButtonBase } from '@mui/material';
 
-export const ItemContainer = styled('article')`
+export const ItemContainer = styled(ButtonBase)`
   width: 100%;
   height: 100%;
   position: relative;
@@ -15,6 +16,7 @@ export const ThumbnailContainer = styled('div')`
   position: relative;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 `;
 
 export const TitleContainer = styled('div')`

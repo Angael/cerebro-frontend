@@ -5,6 +5,7 @@ import UploadPage from './upload/UploadPage';
 import NotFound from './NotFound';
 import Browse from './browse/Browse';
 import Login from './login/Login';
+import ViewItem from './view-item/ViewItem';
 
 interface IProps {}
 
@@ -21,6 +22,10 @@ const Router = (props: IProps) => {
     {
       path: '/browse',
       element: <Browse />,
+    },
+    {
+      path: '/item/:id',
+      element: <ViewItem />,
     },
     {
       path: '/login',
