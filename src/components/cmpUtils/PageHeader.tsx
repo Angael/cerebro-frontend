@@ -31,7 +31,6 @@ const MyContainer = styled('div')`
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(20px) saturate(1.5);
 
-  transition: 0.3s;
   &.isSticky {
     height: 56px;
     padding: 10px 20px;
