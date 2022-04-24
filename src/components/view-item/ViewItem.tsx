@@ -2,12 +2,14 @@ import React, { FunctionComponent } from 'react';
 import { useParams } from 'react-router';
 import { useQuery } from 'react-query';
 import { AxiosError } from 'axios';
-import { Alert } from '@mui/material';
+import { Alert, Box } from '@mui/material';
 
 import { API } from '../../utils/axios';
 import { IFrontItem } from '../../model/IFrontItem';
 import { FileType, IItem } from '../../model/IItem';
 import ViewImage from './image/ViewImage';
+import { ViewItemProps } from './ViewitemProps';
+import ViewItemActionBar from './action-bar/ViewItemActionBar';
 
 type Props = {};
 
@@ -16,7 +18,12 @@ const fetchItem = async (id: string) => {
   return response.data as IFrontItem;
 };
 
-const components = {
+// TODO refactor into shared file
+type ComponentMap = {
+  [any: string]: React.FunctionComponent<ViewItemProps>;
+};
+
+const components: ComponentMap = {
   [FileType.image]: ViewImage,
 };
 
@@ -32,24 +39,20 @@ const ViewItem: FunctionComponent<Props> = ({}) => {
 
   const is404 = item.error?.response?.status === 404;
 
-  let component: React.ReactElement;
+  let Component;
   if (item.data) {
     const type = item.data.fileData?.type;
-    if (type === FileType.image) {
-      component = <ViewImage item={item.data} />;
+    if (type && components[type]) {
+      Component = components[type];
     }
   }
 
   return (
-    <div>
+    <Box>
+      <ViewItemActionBar item={item?.data} />
       {is404 && <Alert severity='error'>Item not found</Alert>}
-      id: {id}{' '}
-      <div>
-        <pre>{JSON.stringify(item.data, null, 2)}</pre>
-        {/*@ts-ignore */}
-        {component}
-      </div>
-    </div>
+      {Component && <Component item={item.data!} />}
+    </Box>
   );
 };
 
