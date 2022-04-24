@@ -8,3 +8,4 @@ export const FIREBASE_BUCKET = process.env.REACT_APP_FIREBASE_BUCKET as string;
 export const FIREBASE_SENDER_ID = process.env
   .REACT_APP_FIREBASE_SENDER_ID as string;
 export const FIREBASE_APP_ID = process.env.REACT_APP_FIREBASE_APP_ID as string;
+export const HOST = process.env.REACT_APP_HOST as string | undefined;

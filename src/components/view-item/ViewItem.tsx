@@ -10,6 +10,7 @@ import { FileType, IItem } from '../../model/IItem';
 import ViewImage from './image/ViewImage';
 import { ViewItemProps } from './ViewitemProps';
 import ViewItemActionBar from './action-bar/ViewItemActionBar';
+import { queryClient } from '../../App';
 
 type Props = {};
 
@@ -34,6 +35,12 @@ const ViewItem: FunctionComponent<Props> = ({}) => {
     () => fetchItem(id),
     {
       retry: 0,
+      initialData: () => {
+        // Use a todo from the 'todos' query as the initial data for this todo query
+        return queryClient
+          .getQueryData<IFrontItem[]>('items')
+          ?.find((item: IFrontItem) => Number(item.id) === Number(id));
+      },
     },
   );
 

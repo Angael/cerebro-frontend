@@ -13,8 +13,7 @@ import { Typography } from '@mui/material';
 import { getThumbnail } from './getThumbnail';
 import { ThumbnailSize } from '../../../model/IItem';
 import { getGridSpan } from './getGridSpan';
-import IconPlaceholder from './IconPlaceholder';
-import { mdiAlert, mdiAlertCircleOutline, mdiLoading } from '@mdi/js';
+import { mdiAlertCircleOutline, mdiClockOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import palette from '../../../theme/palette';
 
@@ -27,7 +26,8 @@ const Item = ({ item, onClick }: IProps) => {
   const [err1, setErr] = useState(false);
 
   const thumbnailSrcXS = getThumbnail(item.thumbnails, ThumbnailSize.xs) || '';
-  const thumbnailSrc = getThumbnail(item.thumbnails, ThumbnailSize.md) || '';
+  const src =
+    getThumbnail(item.thumbnails, ThumbnailSize.md) ?? item.fileData?.url ?? '';
 
   const gridSpanClass = getGridSpan(item);
 
@@ -38,28 +38,39 @@ const Item = ({ item, onClick }: IProps) => {
   return (
     <ItemContainer onClick={onClick} className={gridSpanClass}>
       <ThumbnailContainer>
-        <ProgressiveImage
-          src={thumbnailSrc}
-          placeholder={thumbnailSrcXS}
-          rootMargin='0%'
-          threshold={[0.3]}
-          onError={onError}
-        >
-          {(src: string, loading: boolean) =>
-            err1 ? (
-              <CenterContainer>
-                <Icon
-                  path={mdiAlertCircleOutline}
-                  size={2}
-                  color={palette.grey['50080']}
-                />
-                <Typography>Thumbnail not ready</Typography>
-              </CenterContainer>
-            ) : (
-              <Thumbnail src={src} className={loading ? 'loading' : ''} />
-            )
-          }
-        </ProgressiveImage>
+        {!item.processed ? (
+          <CenterContainer style={{ backgroundColor: palette.grey['50024'] }}>
+            <Icon
+              path={mdiClockOutline}
+              size={2}
+              color={palette.grey['50080']}
+            />
+            <Typography>Thumbnail not ready...</Typography>
+          </CenterContainer>
+        ) : (
+          <ProgressiveImage
+            src={src}
+            placeholder={thumbnailSrcXS}
+            rootMargin='0%'
+            threshold={[0.3]}
+            onError={onError}
+          >
+            {(src: string, loading: boolean) =>
+              err1 ? (
+                <CenterContainer>
+                  <Icon
+                    path={mdiAlertCircleOutline}
+                    size={2}
+                    color={palette.error.main}
+                  />
+                  <Typography>Thumbnail Error</Typography>
+                </CenterContainer>
+              ) : (
+                <Thumbnail src={src} className={loading ? 'loading' : ''} />
+              )
+            }
+          </ProgressiveImage>
+        )}
       </ThumbnailContainer>
       <TitleContainer>
         <Typography variant='body2' m={1}>

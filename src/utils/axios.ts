@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { $auth } from '../store/auth/$auth';
+import { HOST } from '../env';
 
 const baseURL =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000/'
+    ? HOST || 'http://localhost:3000/'
     : 'https://api.widacki.me/';
 
 export const API = axios.create({
@@ -16,6 +17,8 @@ export const API = axios.create({
 
 const absUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
 const isAbsoluteUrl = (url: string) => absUrlRegex.test(url);
+
+console.log(process.env);
 
 API.interceptors.request.use(
   (request) => {
