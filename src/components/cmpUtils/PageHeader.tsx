@@ -1,7 +1,8 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import styled from 'styled-components';
 import clsx from 'clsx';
+import { useIsSticky } from '../../utils/useIsSticky';
 
 interface IProps {
   icon: ReactNode;
@@ -27,64 +28,22 @@ const MyContainer = styled('div')`
   height: ${height}px;
 
   padding: 20px;
-
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(20px) saturate(1.5);
-
-  &.isSticky {
-    height: 56px;
-    padding: 10px 20px;
-  }
 `;
 
-const useIsSticky = () => {
-  const [isSticky, setIsSticky] = useState(false);
-  const ref = useRef<any>(null);
-
-  useEffect(() => {
-    const cachedRef = ref.current;
-    const observer = new IntersectionObserver(
-      ([e]) => setIsSticky(e.intersectionRatio < 1),
-      {
-        threshold: [1],
-        rootMargin: '-3px 0px 0px 0px',
-      },
-    );
-
-    observer.observe(cachedRef);
-
-    // unmount
-    return () => {
-      observer.unobserve(cachedRef);
-    };
-  }, []);
-
-  return [isSticky, ref];
-};
-
 const PageHeader = (props: IProps) => {
-  const [isSticky, ref] = useIsSticky();
-
   return (
-    <Sticky ref={ref as any}>
-      <MyContainer className={clsx({ isSticky })}>
-        {!isSticky && props.icon}
-        <Box component='header'>
-          <Typography
-            variant={isSticky ? 'h4' : 'h1'}
-            color='textPrimary'
-            display='inline-block'
-          >
-            {props.h1}
-          </Typography>
-          {!isSticky && (
-            <Typography mt={-1} variant='body1' color='textSecondary'>
-              {props.caption}
-            </Typography>
-          )}
-        </Box>
-      </MyContainer>
-    </Sticky>
+    <MyContainer>
+      {props.icon}
+      <Box component='header'>
+        <Typography variant={'h1'} color='textPrimary' display='inline-block'>
+          {props.h1}
+        </Typography>
+
+        <Typography mt={-1} variant='body1' color='textSecondary'>
+          {props.caption}
+        </Typography>
+      </Box>
+    </MyContainer>
   );
 };
 

@@ -29,18 +29,7 @@ const Browse = (props: IProps) => {
 
   return (
     <>
-      <PageHeader
-        icon={
-          <Icon
-            path={mdiFolder}
-            size={2.5}
-            color={useTheme().palette.primary.main}
-          />
-        }
-        h1='Browse'
-        caption='Videos, photos, websites, notes'
-      />
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
         {items.data && (
           <ItemGrid
             items={items.data}

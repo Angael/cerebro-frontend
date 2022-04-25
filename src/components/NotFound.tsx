@@ -1,34 +1,23 @@
 import React from 'react';
-import Layout from './Layout';
-import { Box, Container, Divider, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import Icon from '@mdi/react';
-import { mdiAlert, mdiCloud } from '@mdi/js';
-import { useTheme } from '@mui/material/styles';
+import { mdiAlertOutline } from '@mdi/js';
+import palette from '../theme/palette';
+import { useLocation } from 'react-router';
 
 interface IProps {}
 
 const NotFound = (props: IProps) => {
-  const theme = useTheme();
-
+  const path = useLocation();
   return (
-    <Container
-      maxWidth="md"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 3,
-        m: 5,
-      }}
-    >
-      <Box component="header">
-        <Typography variant="h2" color="textSecondary">
-          <Box display="span" sx={{ color: 'warning.main', display: 'inline' }}>
-            404
-          </Box>{' '}
-          Page not found
+    <Container maxWidth='md' sx={{ pt: 4 }}>
+      <Stack alignItems='center'>
+        <Icon path={mdiAlertOutline} size={2} color={palette.warning.main} />
+        <Typography variant='h2'>Page not found</Typography>
+        <Typography variant='body1' color='textSecondary'>
+          {path.pathname}
         </Typography>
-      </Box>
+      </Stack>
     </Container>
   );
 };
