@@ -21,7 +21,9 @@ const fetchItems = async () => {
 const Browse = (props: IProps) => {
   const navigate = useNavigate();
 
-  const items = useQuery('items', fetchItems, { refetchOnWindowFocus: false });
+  const items = useQuery('items', fetchItems, {
+    refetchInterval: 5 * 60 * 1000,
+  });
 
   const onSelectItem = (id: number) => {
     navigate(`/item/${id}`);

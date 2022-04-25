@@ -5,6 +5,7 @@ import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { useNavigate } from 'react-router';
 import { IFrontItem } from '../../../model/IFrontItem';
+import { NAV_HEIGHT } from '../../../utils/consts';
 
 type Props = {
   item?: IFrontItem;
@@ -13,6 +14,7 @@ type Props = {
 const Container = styled('div')({
   borderBottom: `solid 1px ${palette.grey['50024']}`,
   padding: 8,
+  height: NAV_HEIGHT,
 });
 
 const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {

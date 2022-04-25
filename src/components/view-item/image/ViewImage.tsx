@@ -20,10 +20,8 @@ const ViewImage: FunctionComponent<ViewItemProps> = ({ item }) => {
       <ProgressiveImage src={item.fileData.url} placeholder={placeholder ?? ''}>
         {(src: string, loading: boolean) => (
           <img
-            style={{ opacity: loading ? 0.5 : 1, objectFit: 'none' }}
+            style={{ objectFit: 'contain', width: `min(${width}px, 100%)` }}
             src={src}
-            width={width}
-            height={height}
           />
         )}
       </ProgressiveImage>

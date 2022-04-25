@@ -20,10 +20,10 @@ export const GridContainer = styled.section`
     grid-auto-rows: 300px;
   }
 
-  transition: opacity 0.1s;
-  opacity: 1;
-  &.isFetching {
-    opacity: 0.7;
-    transition: opacity 1s;
-  }
+  //transition: opacity 0.1s;
+  //opacity: 1;
+  //&.isFetching {
+  //  opacity: 0.7;
+  //  transition: opacity 1s;
+  //}
 `;
