@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { IconButton, Stack, styled, Typography } from '@mui/material';
+import { Box, IconButton, Stack, styled, Typography } from '@mui/material';
 import palette from '../../../theme/palette';
 import Icon from '@mdi/react';
-import { mdiArrowLeft } from '@mdi/js';
+import { mdiArrowLeft, mdiDelete, mdiFullscreen, mdiStar } from '@mdi/js';
 import { useNavigate } from 'react-router';
 import { IFrontItem } from '../../../model/IFrontItem';
 import { NAV_HEIGHT } from '../../../utils/consts';
@@ -17,16 +17,44 @@ const Container = styled('div')({
   height: NAV_HEIGHT,
 });
 
+const OverflowTypography = styled(Typography)({
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+});
+
+const StackWithOverflowText = styled(Stack)({
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  flex: 1,
+});
+
 const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
   const navigate = useNavigate();
 
   return (
     <Container>
       <Stack direction='row' alignItems='center' gap={1}>
-        <IconButton onClick={() => navigate(-1)}>
-          <Icon path={mdiArrowLeft} size={1} />
+        <StackWithOverflowText
+          direction='row'
+          alignItems='center'
+          sx={{ flex: 1 }}
+        >
+          <IconButton onClick={() => navigate(-1)}>
+            <Icon path={mdiArrowLeft} size={1} />
+          </IconButton>
+          <OverflowTypography>{item?.fileData?.filename}</OverflowTypography>
+        </StackWithOverflowText>
+        <IconButton>
+          <Icon path={mdiFullscreen} size={1} />
         </IconButton>
-        <Typography>{item?.fileData?.filename}</Typography>
+        <IconButton color={'warning'}>
+          <Icon path={mdiStar} size={1} />
+        </IconButton>
+        <IconButton color={'error'}>
+          <Icon path={mdiDelete} size={1} />
+        </IconButton>
       </Stack>
     </Container>
   );
