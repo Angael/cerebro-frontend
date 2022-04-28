@@ -3,8 +3,6 @@ import { Box, Typography } from '@mui/material';
 import Icon from '@mdi/react';
 import { mdiCloud } from '@mdi/js';
 import { useTheme } from '@mui/material/styles';
-import { motion } from 'framer-motion';
-import { TRANSITIONS, VARIANTS } from '../../framer/transitions';
 
 const DrawerLogo = () => {
   const theme = useTheme();
@@ -21,15 +19,7 @@ const DrawerLogo = () => {
         }}
       >
         <Icon path={mdiCloud} size={2.5} color={theme.palette.primary.main} />
-        <Typography
-          variant="h3"
-          color="textSecondary"
-          component={motion.p}
-          initial="collapsed"
-          animate="open"
-          variants={VARIANTS.drawerHeader}
-          transition={TRANSITIONS.drawerHeader}
-        >
+        <Typography variant='h3' color='textSecondary'>
           Cerebro
         </Typography>
       </Box>

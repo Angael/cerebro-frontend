@@ -18,7 +18,6 @@ import { logIn, register } from '../../store/auth/authActions';
 import { useStore } from 'effector-react';
 import { $auth, AuthState } from '../../store/auth/$auth';
 import { useNavigate } from 'react-router';
-import CustomCollapse from '../cmpUtils/CustomCollapse';
 import { authErrorMap } from './authErrorMap';
 import AuthError from './AuthError';
 
@@ -78,11 +77,14 @@ const Login = () => {
 
       <Divider sx={{ my: 4 }} />
 
-      <CustomCollapse isOpen={isLoggedIn}>
-        <Typography variant='h2'>You are logged in!</Typography>
-        <Typography variant='caption'>Why are you still here?</Typography>
-      </CustomCollapse>
-      <CustomCollapse isOpen={!isLoggedIn}>
+      {isLoggedIn && (
+        <>
+          <Typography variant='h2'>You are logged in!</Typography>
+          <Typography variant='caption'>Why are you still here?</Typography>
+        </>
+      )}
+
+      {!isLoggedIn && (
         <Grid container>
           <Grid item xs={12} md={6}>
             <Stack
@@ -147,7 +149,7 @@ const Login = () => {
             </Stack>
           </Grid>
         </Grid>
-      </CustomCollapse>
+      )}
     </Container>
   );
 };

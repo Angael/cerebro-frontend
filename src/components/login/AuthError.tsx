@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import CustomCollapse from '../cmpUtils/CustomCollapse';
 import { Alert, Typography } from '@mui/material';
 import { authErrorMap } from './authErrorMap';
 
@@ -16,15 +15,16 @@ const AuthError = ({ error }: IProps) => {
     }
   }, [error]);
 
+  if (!error) {
+    return null;
+  }
+
   return (
-    <CustomCollapse isOpen={!!error}>
-      <Alert severity='error'>
-        <Typography>
-          {(authErrorMap.get(persistentErr) || persistentErr) ??
-            'Unknown error'}
-        </Typography>
-      </Alert>
-    </CustomCollapse>
+    <Alert severity='error'>
+      <Typography>
+        {(authErrorMap.get(persistentErr) || persistentErr) ?? 'Unknown error'}
+      </Typography>
+    </Alert>
   );
 };
 
