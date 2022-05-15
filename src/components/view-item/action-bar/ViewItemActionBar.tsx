@@ -6,6 +6,7 @@ import { mdiArrowLeft, mdiDelete, mdiFullscreen, mdiStar } from '@mdi/js';
 import { useNavigate } from 'react-router';
 import { IFrontItem } from '../../../model/IFrontItem';
 import { NAV_HEIGHT } from '../../../utils/consts';
+import { deleteItemReq } from '../../../network/deleteItemReq';
 
 type Props = {
   item?: IFrontItem;
@@ -33,6 +34,12 @@ const StackWithOverflowText = styled(Stack)({
 const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
   const navigate = useNavigate();
 
+  const handleDelete = () => {
+    if (item) {
+      deleteItemReq(item.id);
+    }
+  };
+
   return (
     <Container>
       <Stack direction='row' alignItems='center' gap={1}>
@@ -52,7 +59,7 @@ const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
         <IconButton color={'warning'}>
           <Icon path={mdiStar} size={1} />
         </IconButton>
-        <IconButton color={'error'}>
+        <IconButton color={'error'} onClick={handleDelete}>
           <Icon path={mdiDelete} size={1} />
         </IconButton>
       </Stack>
