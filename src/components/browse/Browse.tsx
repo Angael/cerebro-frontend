@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from '@mui/material';
-import Icon from '@mdi/react';
-import { mdiFolder } from '@mdi/js';
-import PageHeader from '../cmpUtils/PageHeader';
-import { useTheme } from '@mui/material/styles';
 import ItemGrid from './item-grid/ItemGrid';
 import AddFab from '../add/AddFAB';
 import { useQuery } from 'react-query';

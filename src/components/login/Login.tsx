@@ -13,7 +13,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Icon from '@mdi/react';
 import { mdiCloud } from '@mdi/js';
 import { useTheme } from '@mui/material/styles';
-import PageHeader from '../cmpUtils/PageHeader';
+import PageHeader from '../cmp-utils/PageHeader';
 import { logIn, register } from '../../store/auth/authActions';
 import { useStore } from 'effector-react';
 import { $auth, AuthState } from '../../store/auth/$auth';

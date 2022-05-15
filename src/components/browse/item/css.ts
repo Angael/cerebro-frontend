@@ -55,7 +55,7 @@ export const Thumbnail = styled('img')`
   object-fit: cover;
 
   &.loading {
-    filter: blur(2px);
+    filter: blur(4px);
   }
 `;
 

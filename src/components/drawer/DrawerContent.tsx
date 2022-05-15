@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import DrawerLogo from './DrawerLogo';
 import LoginStatus from './LoginStatus';
 import { $auth, AuthState } from '../../store/auth/$auth';
+import UsedSpace from './used-space/UsedSpace';
 
 const stackProps = {
   direction: 'column',
@@ -20,7 +21,7 @@ const DrawerContent = (props: IProps) => {
   const isLoggedIn = state === AuthState.loggedIn;
 
   return (
-    <Box sx={{ p: 2, flex: 1 }}>
+    <Box sx={{ p: 2, flex: 1, display: 'flex', flexDirection: 'column' }}>
       <DrawerLogo />
       <Box my={1}>
         <LoginStatus />
@@ -58,6 +59,9 @@ const DrawerContent = (props: IProps) => {
             </Button>
           </Stack>
         )}
+      </Stack>
+      <Stack sx={{ flex: 1, justifyContent: 'flex-end' }}>
+        <UsedSpace />
       </Stack>
     </Box>
   );
