@@ -11,13 +11,7 @@ const MyGrid = styled('div')(({ theme }) => ({
   padding: '16px 0',
   justifyContent: 'center',
   gridAutoRows: 200,
-  gridTemplateColumns: '1fr',
-  [theme.breakpoints.up('sm')]: {
-    gridTemplateColumns: '1fr 1fr',
-  },
-  [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: 'repeat(auto-fill, 200px)',
-  },
+  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
 }));
 
 interface IProps {
