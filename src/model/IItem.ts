@@ -1,13 +1,9 @@
-export enum ItemCategory {
+export enum ItemType {
   file = 'file',
+  image = 'image',
+  video = 'video',
   website = 'website',
   text = 'text',
-}
-
-export enum FileType {
-  video = 'video',
-  image = 'image',
-  other = 'other',
 }
 
 export enum ThumbnailSize {
@@ -17,54 +13,41 @@ export enum ThumbnailSize {
 }
 
 export interface IItem {
-  id?: number;
+  id: number;
   account_uid: string;
 
-  category: ItemCategory;
+  type: ItemType;
   private: boolean;
-  processed?: boolean;
-  created_at?: string; // ISO
+  processed: boolean;
+  created_at: string; // ISO
 }
 
-export interface IThumbnail {
-  id?: number;
-  item_id: number;
-
-  created_at: string;
-  type: ThumbnailSize;
-  path: string;
-  size: number; // bytes
-  width: number;
-  height: number;
-  isAnimated: boolean;
-}
-
-export interface IFile {
-  id?: number;
-  item_id: number;
-
+export interface IFileData {
   filename: string;
   path: string;
-  type: FileType;
   size: number;
 }
 
-export interface IVideo {
-  id?: number;
-  file_id: number;
-
+export interface IVideoData {
   duration: number;
   bitrate: number;
   width: number;
   height: number;
 }
 
-export interface IImage {
-  id?: number;
+export interface IVideo extends IVideoData, IFileData {
+  id: number;
   file_id: number;
+}
 
+export interface IImageData {
   width: number;
   height: number;
   isAnimated: boolean;
   hash: string;
+}
+
+export interface IImage extends IImageData, IFileData {
+  id: number;
+  file_id: number;
 }

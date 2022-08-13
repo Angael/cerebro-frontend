@@ -6,7 +6,7 @@ import { Alert, Box } from '@mui/material';
 
 import { API } from '../../utils/axios';
 import { IFrontItem } from '../../model/IFrontItem';
-import { FileType, IItem } from '../../model/IItem';
+import { ItemType } from '../../model/IItem';
 import ViewImage from './image/ViewImage';
 import { ViewItemProps } from './ViewitemProps';
 import ViewItemActionBar from './action-bar/ViewItemActionBar';
@@ -25,7 +25,7 @@ type ComponentMap = {
 };
 
 const components: ComponentMap = {
-  [FileType.image]: ViewImage,
+  [ItemType.image]: ViewImage,
 };
 
 const ViewItem: FunctionComponent<Props> = ({}) => {
@@ -35,12 +35,10 @@ const ViewItem: FunctionComponent<Props> = ({}) => {
     () => fetchItem(id),
     {
       retry: 0,
-      initialData: () => {
-        // Use a todo from the 'todos' query as the initial data for this todo query
-        return queryClient
+      initialData: () =>
+        queryClient
           .getQueryData<IFrontItem[]>('items')
-          ?.find((item: IFrontItem) => Number(item.id) === Number(id));
-      },
+          ?.find((item: IFrontItem) => Number(item.id) === Number(id)),
     },
   );
 
@@ -48,7 +46,7 @@ const ViewItem: FunctionComponent<Props> = ({}) => {
 
   let Component;
   if (item.data) {
-    const type = item.data.fileData?.type;
+    const type = item.data.type;
     if (type && components[type]) {
       Component = components[type];
     }

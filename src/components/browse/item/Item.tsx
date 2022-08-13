@@ -26,8 +26,7 @@ const Item = ({ item, onClick }: IProps) => {
   const [err1, setErr] = useState(false);
 
   const thumbnailSrcXS = getThumbnail(item.thumbnails, ThumbnailSize.xs) || '';
-  const src =
-    getThumbnail(item.thumbnails, ThumbnailSize.md) ?? item.fileData?.url ?? '';
+  const src = getThumbnail(item.thumbnails, ThumbnailSize.md) ?? '';
 
   const gridSpanClass = getGridSpan(item);
 
@@ -74,7 +73,7 @@ const Item = ({ item, onClick }: IProps) => {
       </ThumbnailContainer>
       <TitleContainer>
         <Typography variant='body2' m={1}>
-          {item.fileData?.filename}
+          filename{/*item.fileData?.filename*/}
         </Typography>
       </TitleContainer>
     </ItemContainer>

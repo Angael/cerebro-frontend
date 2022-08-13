@@ -7,7 +7,7 @@ import { getThumbnail } from '../../browse/item/getThumbnail';
 import { ThumbnailSize } from '../../../model/IItem';
 
 const ViewImage: FunctionComponent<ViewItemProps> = ({ item }) => {
-  if (!item.fileData || !item.image) {
+  if (!item.image) {
     return <div>Corrupted file</div>;
   }
 
@@ -17,7 +17,7 @@ const ViewImage: FunctionComponent<ViewItemProps> = ({ item }) => {
 
   return (
     <Box p={2}>
-      <ProgressiveImage src={item.fileData.url} placeholder={placeholder ?? ''}>
+      <ProgressiveImage src={item.image.url} placeholder={placeholder ?? ''}>
         {(src: string, loading: boolean) => (
           <img
             style={{ objectFit: 'contain', width: `min(${width}px, 100%)` }}

@@ -40,6 +40,8 @@ const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
     }
   };
 
+  const filename = 'filename'; // item?.image?.filename || item?.video?.filename
+
   return (
     <Container>
       <Stack direction='row' alignItems='center' gap={1}>
@@ -51,7 +53,7 @@ const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
           <IconButton onClick={() => navigate(-1)}>
             <Icon path={mdiArrowLeft} size={1} />
           </IconButton>
-          <OverflowTypography>{item?.fileData?.filename}</OverflowTypography>
+          <OverflowTypography>{filename}</OverflowTypography>
         </StackWithOverflowText>
         <IconButton>
           <Icon path={mdiFullscreen} size={1} />
