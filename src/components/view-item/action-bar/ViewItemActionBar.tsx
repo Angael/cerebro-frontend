@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Box, IconButton, Stack, styled, Typography } from '@mui/material';
+import { IconButton, Stack, styled, Typography } from '@mui/material';
 import palette from '../../../theme/palette';
 import Icon from '@mdi/react';
 import { mdiArrowLeft, mdiDelete, mdiFullscreen, mdiStar } from '@mdi/js';

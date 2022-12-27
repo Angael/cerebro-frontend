@@ -11,6 +11,7 @@ import ViewImage from './image/ViewImage';
 import { ViewItemProps } from './ViewitemProps';
 import ViewItemActionBar from './action-bar/ViewItemActionBar';
 import { queryClient } from '../../App';
+import ViewVideo from './video/ViewVideo';
 
 type Props = {};
 
@@ -26,6 +27,7 @@ type ComponentMap = {
 
 const components: ComponentMap = {
   [ItemType.image]: ViewImage,
+  [ItemType.video]: ViewVideo,
 };
 
 const ViewItem: FunctionComponent<Props> = ({}) => {

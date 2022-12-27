@@ -1,10 +1,9 @@
-import {IImageData, ItemType, IVideoData, ThumbnailSize,} from './IItem';
+import { IImageData, ItemType, IVideoData, ThumbnailSize } from './IItem';
 
 // TODO: I just copied this stuff and it breaks because i need to copy more types to front end
 type Thumbnail = {
   url: string;
   type: ThumbnailSize;
-  isAnimated: boolean;
 };
 
 type AddUrl = {
