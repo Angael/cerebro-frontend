@@ -24,29 +24,3 @@ export const register = (email: string, password: string) =>
 
 export const sendPasswordReset = (email: string) =>
   sendPasswordResetEmail(auth, email);
-
-// const data = {
-//   email,
-//   password,
-//   returnSecureToken: true,
-// };
-//
-// return (
-//   API.post(
-//     `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_KEY}`,
-//     data,
-//   )
-//     // TODO check if error is 'account exists' then try to register in my backend again
-//     .then((response) =>
-//       API.post('/account/register', {
-//         email,
-//         uid: response.data.localId,
-//       }),
-//     )
-//     .then((_res) => logIn(email, password))
-//     .catch((e) => {
-//       console.error('error with registration', e);
-//       logout();
-//       throw new Error();
-//     })
-// );
