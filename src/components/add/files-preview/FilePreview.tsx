@@ -1,12 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import {
-  Button,
-  CircularProgress,
-  Stack,
-  styled,
-  CircularProgressProps,
-} from '@mui/material';
+import { Button, CircularProgress, Stack, styled } from '@mui/material';
 import { ExtendedFile, UploadStatusEnum } from '../../../model/extendedFile';
 
 const Container = styled('div')(({ theme }) => ({
@@ -77,8 +71,6 @@ const CenteredLoader = styled(CircularProgress)({
   top: 'calc(50% - 30px)',
   left: 'calc(50% - 30px)',
   zIndex: 1,
-  opacity: 0,
-  transition: 'opacity 0.2s',
 });
 
 interface IProps {
@@ -96,7 +88,7 @@ const loadingColors = {
 const FilePreview = ({ file, onDelete }: IProps) => {
   const isImage = file.file.type.indexOf('image') >= 0;
   const isVideo = file.file.type.indexOf('video') >= 0;
-  const showImgReally = file.file.size < 3000000 && !isVideo;
+  const tooBig = file.file.size > 10_000_000;
 
   const sizeStr = numeral(file.file.size).format('0b');
 
@@ -113,20 +105,23 @@ const FilePreview = ({ file, onDelete }: IProps) => {
 
   return (
     <Container>
-      <CenteredLoader
-        sx={{ opacity: showLoader ? 1 : 0 }}
-        thickness={9}
-        size={60}
-        variant='determinate'
-        value={file.uploadProgress}
-        color={color}
-      />
-      {isImage && <BgImg src={file.previewSrc} />}
-      {isVideo && (
+      {showLoader && (
+        <CenteredLoader
+          thickness={9}
+          size={60}
+          variant='determinate'
+          value={file.uploadProgress}
+          color={color}
+        />
+      )}
+
+      {isImage && !tooBig && <BgImg src={file.previewSrc} />}
+      {isVideo && !tooBig && (
         <BgVid controls={false}>
           <source src={file.previewSrc} type='video/mp4' />
         </BgVid>
       )}
+
       <Content>
         <Stack justifyContent='space-between' sx={{ height: '100%' }}>
           <Stack sx={{ gap: 1 }}>
@@ -158,4 +153,4 @@ const FilePreview = ({ file, onDelete }: IProps) => {
   );
 };
 
-export default FilePreview;
+export default React.memo(FilePreview);
