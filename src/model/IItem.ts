@@ -1,15 +1,15 @@
 export enum ItemType {
   file = 'file',
-  image = 'image',
-  video = 'video',
+  image = 'IMAGE',
+  video = 'VIDEO',
   website = 'website',
   text = 'text',
 }
 
 export enum ThumbnailSize {
-  xs = 'xs',
-  sm = 'sm',
-  md = 'md',
+  xs = 'XS',
+  sm = 'SM',
+  md = 'MD',
 }
 
 export interface IItem {

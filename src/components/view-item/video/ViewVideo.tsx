@@ -22,6 +22,8 @@ const ViewVideo: FunctionComponent<ViewItemProps> = ({ item }) => {
         controls
         poster={placeholder}
         style={{ width: `min(${width}px, 100%)` }}
+        autoPlay
+        loop
       >
         <source src={url} />
       </video>
