@@ -3,10 +3,10 @@ import clsx from 'clsx';
 
 import { GridContainer } from './css';
 import Item from '../item/Item';
-import { IFrontItem } from '../../../model/IFrontItem';
+import { FrontItem } from '@vanih/cerebro-contracts';
 
 type Props = {
-  items: IFrontItem[];
+  items: FrontItem[];
   isFetching: boolean;
   onSelectItem: (id: number) => void;
 };

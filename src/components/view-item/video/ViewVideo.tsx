@@ -1,31 +1,31 @@
-import React, { FunctionComponent } from 'react';
-import { ViewItemProps } from '../ViewitemProps';
+import React from 'react';
 import { Box } from '@mui/material';
+import { VideoItem } from '@vanih/cerebro-contracts';
 
-import { getThumbnail } from '../../browse/item/getThumbnail';
-import { ThumbnailSize } from '../../../model/IItem';
+type Props = {
+  item: VideoItem;
+};
 
-const ViewVideo: FunctionComponent<ViewItemProps> = ({ item }) => {
+const ViewVideo = ({ item }: Props) => {
   if (!item.video) {
     return <div>Corrupted file</div>;
   }
 
-  const { width, height, url, bitrate, duration } = item.video;
+  const { width, height, src, bitrateKb, durationMs } = item.video;
 
-  const placeholder = getThumbnail(item.thumbnails, ThumbnailSize.md);
-
+  const placeholder = item.thumbnail;
   console.log({ placeholder });
 
   return (
     <Box p={2}>
       <video
         controls
-        poster={placeholder}
+        poster={item.thumbnail || ''}
         style={{ width: `min(${width}px, 100%)` }}
         autoPlay
         loop
       >
-        <source src={url} />
+        <source src={src} />
       </video>
     </Box>
   );

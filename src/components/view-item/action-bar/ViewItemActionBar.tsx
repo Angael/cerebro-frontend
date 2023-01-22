@@ -4,12 +4,12 @@ import palette from '../../../theme/palette';
 import Icon from '@mdi/react';
 import { mdiArrowLeft, mdiDelete, mdiFullscreen, mdiStar } from '@mdi/js';
 import { useNavigate } from 'react-router';
-import { IFrontItem } from '../../../model/IFrontItem';
 import { NAV_HEIGHT } from '../../../utils/consts';
 import { deleteItemReq } from '../../../network/deleteItemReq';
+import { FrontItem } from '@vanih/cerebro-contracts';
 
 type Props = {
-  item?: IFrontItem;
+  item?: FrontItem;
 };
 
 const Container = styled('div')({

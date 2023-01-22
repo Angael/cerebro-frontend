@@ -1,9 +1,16 @@
-import { IFrontItem } from '../../../model/IFrontItem';
 import { MD_CELL_SIZE } from '../../../utils/consts';
+import type { FrontItem } from '@vanih/cerebro-contracts';
 
-export const getGridSpan = (item: IFrontItem): '' | 'tall' | 'wide' => {
-  let w = item.image?.width ?? item.video?.width;
-  let h = item.image?.height ?? item.video?.height;
+export const getGridSpan = (item: FrontItem): '' | 'tall' | 'wide' => {
+  let w, h;
+  if (item.type === 'VIDEO') {
+    w = item.video.width;
+    h = item.video.height;
+  }
+  if (item.type === 'IMAGE') {
+    w = item.image?.width;
+    h = item.image?.height;
+  }
 
   if (!h || !w) {
     return '';

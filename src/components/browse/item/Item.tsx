@@ -8,25 +8,23 @@ import {
   ThumbnailContainer,
   TitleContainer,
 } from './css';
-import { IFrontItem } from '../../../model/IFrontItem';
 import { Typography } from '@mui/material';
-import { getThumbnail } from './getThumbnail';
-import { ThumbnailSize } from '../../../model/IItem';
 import { getGridSpan } from './getGridSpan';
 import { mdiAlertCircleOutline, mdiClockOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import palette from '../../../theme/palette';
+import { FrontItem } from '@vanih/cerebro-contracts';
 
 interface IProps {
-  item: IFrontItem;
+  item: FrontItem;
   onClick: () => void;
 }
 
 const Item = ({ item, onClick }: IProps) => {
   const [err1, setErr] = useState(false);
 
-  const thumbnailSrcXS = getThumbnail(item.thumbnails, ThumbnailSize.xs) || '';
-  const src = getThumbnail(item.thumbnails, ThumbnailSize.md) ?? '';
+  const iconSrc = item.icon || '';
+  const thumbnailSrc = item.thumbnail ?? '';
 
   const gridSpanClass = getGridSpan(item);
 
@@ -37,7 +35,7 @@ const Item = ({ item, onClick }: IProps) => {
   return (
     <ItemContainer onClick={onClick} className={gridSpanClass}>
       <ThumbnailContainer>
-        {!item.processed ? (
+        {!thumbnailSrc && !iconSrc ? (
           <CenterContainer style={{ backgroundColor: palette.grey['50024'] }}>
             <Icon
               path={mdiClockOutline}
@@ -48,8 +46,8 @@ const Item = ({ item, onClick }: IProps) => {
           </CenterContainer>
         ) : (
           <ProgressiveImage
-            src={src}
-            placeholder={thumbnailSrcXS}
+            src={thumbnailSrc}
+            placeholder={iconSrc}
             rootMargin='0%'
             threshold={[0.3]}
             onError={onError}

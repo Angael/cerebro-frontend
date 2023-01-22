@@ -20,6 +20,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/uuid": "^8.3.4",
+    "@vanih/cerebro-contracts": "0.0.5",
     "axios": "^0.24.0",
     "clsx": "^1.1.1",
     "effector": "^22.1.2",

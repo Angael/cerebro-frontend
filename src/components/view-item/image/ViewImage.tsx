@@ -1,26 +1,31 @@
-import React, { FunctionComponent } from 'react';
-import { ViewItemProps } from '../ViewitemProps';
+import React from 'react';
 import { Box } from '@mui/material';
 import ProgressiveImage from 'react-progressive-graceful-image';
+import { ImageItem } from '@vanih/cerebro-contracts';
 
-import { getThumbnail } from '../../browse/item/getThumbnail';
-import { ThumbnailSize } from '../../../model/IItem';
+type Props = {
+  item: ImageItem;
+};
 
-const ViewImage: FunctionComponent<ViewItemProps> = ({ item }) => {
+const ViewImage = ({ item }: Props) => {
   if (!item.image) {
     return <div>Corrupted file</div>;
   }
 
   const { width, height } = item.image;
 
-  const placeholder = getThumbnail(item.thumbnails, ThumbnailSize.md);
+  const placeholder = item.thumbnail;
 
   return (
     <Box p={2}>
-      <ProgressiveImage src={item.image.url} placeholder={placeholder ?? ''}>
+      <ProgressiveImage src={item.image.src} placeholder={placeholder ?? ''}>
         {(src: string, loading: boolean) => (
           <img
-            style={{ objectFit: 'contain', width: `min(${width}px, 100%)` }}
+            style={{
+              objectFit: 'contain',
+              width: `min(${width}px, 100vw)`,
+              height: `min(${height}px, 100vh)`,
+            }}
             src={src}
           />
         )}

@@ -5,42 +5,35 @@ import { AxiosError } from 'axios';
 import { Alert, Box } from '@mui/material';
 
 import { API } from '../../utils/axios';
-import { IFrontItem } from '../../model/IFrontItem';
-import { ItemType } from '../../model/IItem';
 import ViewImage from './image/ViewImage';
-import { ViewItemProps } from './ViewitemProps';
 import ViewItemActionBar from './action-bar/ViewItemActionBar';
 import { queryClient } from '../../App';
 import ViewVideo from './video/ViewVideo';
+import { FrontItem } from '@vanih/cerebro-contracts';
 
 type Props = {};
 
 const fetchItem = async (id: string) => {
   const response = await API.get(`/items/item/${id}`);
-  return response.data as IFrontItem;
+  return response.data as FrontItem;
 };
 
-// TODO refactor into shared file
-type ComponentMap = {
-  [any: string]: React.FunctionComponent<ViewItemProps>;
-};
-
-const components: ComponentMap = {
-  [ItemType.image]: ViewImage,
-  [ItemType.video]: ViewVideo,
-};
+const components = {
+  IMAGE: ViewImage,
+  VIDEO: ViewVideo,
+} as const;
 
 const ViewItem: FunctionComponent<Props> = ({}) => {
   const { id = '' } = useParams();
-  const item = useQuery<IFrontItem, AxiosError>(
+  const item = useQuery<FrontItem, AxiosError>(
     [`item`, id],
     () => fetchItem(id),
     {
       retry: 0,
       initialData: () =>
         queryClient
-          .getQueryData<IFrontItem[]>('items')
-          ?.find((item: IFrontItem) => Number(item.id) === Number(id)),
+          .getQueryData<FrontItem[]>('items')
+          ?.find((item: FrontItem) => Number(item.id) === Number(id)),
     },
   );
 
@@ -58,7 +51,13 @@ const ViewItem: FunctionComponent<Props> = ({}) => {
     <Box>
       <ViewItemActionBar item={item?.data} />
       {is404 && <Alert severity='error'>Item not found</Alert>}
-      {Component && <Component item={item.data!} />}
+      {/* TODO to get rid of ts-ignore change into many ifs?*/}
+      {Component && (
+        <Component
+          // @ts-ignore
+          item={item.data!}
+        />
+      )}
     </Box>
   );
 };
