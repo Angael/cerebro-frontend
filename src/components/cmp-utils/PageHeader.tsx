@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
 import styled from 'styled-components';
-import clsx from 'clsx';
-import { useIsSticky } from '../../utils/useIsSticky';
 
 interface IProps {
   icon: ReactNode;
@@ -11,13 +9,6 @@ interface IProps {
 }
 
 const height = 100;
-const Sticky = styled('div')`
-  height: ${height}px;
-  position: sticky;
-  top: 0;
-  margin: 60px 0;
-  z-index: 1;
-`;
 
 const MyContainer = styled('div')`
   display: flex;
