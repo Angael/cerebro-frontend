@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 
 const ImportPage = () => {
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth='md'>
       <PageHeader
         h1='Import images and videos'
         caption='Advanced importing and uploading page'
