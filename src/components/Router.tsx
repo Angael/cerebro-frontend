@@ -6,6 +6,7 @@ import NotFound from './NotFound';
 import Browse from './browse/Browse';
 import Login from './login/Login';
 import ViewItem from './view-item/ViewItem';
+import ImportPage from './import/ImportPage';
 
 interface IProps {}
 
@@ -30,6 +31,10 @@ const Router = (props: IProps) => {
     {
       path: '/login',
       element: <Login />,
+    },
+    {
+      path: '/import',
+      element: <ImportPage />,
     },
     {
       path: '/upload',
