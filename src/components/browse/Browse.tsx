@@ -4,14 +4,14 @@ import ItemGrid from './item-grid/ItemGrid';
 import AddFab from '../add/AddFAB';
 import { useQuery } from 'react-query';
 import { API } from '../../utils/axios';
-import { IFrontItem } from '../../model/IFrontItem';
 import { useNavigate } from 'react-router';
+import { FrontItem } from '@vanih/cerebro-contracts';
 
 interface IProps {}
 
 const fetchItems = async () => {
   const response = await API.get('/items');
-  return response.data as IFrontItem[];
+  return response.data as FrontItem[];
 };
 
 const Browse = (props: IProps) => {

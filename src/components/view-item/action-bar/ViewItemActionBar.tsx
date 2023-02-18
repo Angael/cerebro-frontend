@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import { Box, IconButton, Stack, styled, Typography } from '@mui/material';
+import { IconButton, Stack, styled, Typography } from '@mui/material';
 import palette from '../../../theme/palette';
 import Icon from '@mdi/react';
 import { mdiArrowLeft, mdiDelete, mdiFullscreen, mdiStar } from '@mdi/js';
 import { useNavigate } from 'react-router';
-import { IFrontItem } from '../../../model/IFrontItem';
 import { NAV_HEIGHT } from '../../../utils/consts';
 import { deleteItemReq } from '../../../network/deleteItemReq';
+import { FrontItem } from '@vanih/cerebro-contracts';
 
 type Props = {
-  item?: IFrontItem;
+  item?: FrontItem;
 };
 
 const Container = styled('div')({
@@ -40,6 +40,8 @@ const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
     }
   };
 
+  const filename = 'filename'; // item?.image?.filename || item?.video?.filename
+
   return (
     <Container>
       <Stack direction='row' alignItems='center' gap={1}>
@@ -51,7 +53,7 @@ const ViewItemActionBar: FunctionComponent<Props> = ({ item }) => {
           <IconButton onClick={() => navigate(-1)}>
             <Icon path={mdiArrowLeft} size={1} />
           </IconButton>
-          <OverflowTypography>{item?.fileData?.filename}</OverflowTypography>
+          <OverflowTypography>{filename}</OverflowTypography>
         </StackWithOverflowText>
         <IconButton>
           <Icon path={mdiFullscreen} size={1} />

@@ -18,8 +18,6 @@ export const API = axios.create({
 const absUrlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
 const isAbsoluteUrl = (url: string) => absUrlRegex.test(url);
 
-console.log(process.env);
-
 API.interceptors.request.use(
   (request) => {
     const { token } = $auth.getState();

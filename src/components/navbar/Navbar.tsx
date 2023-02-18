@@ -7,6 +7,7 @@ import {
   mdiBookmarkMultiple,
   mdiCompass,
   mdiMenu,
+  mdiPlus,
   mdiSearchWeb,
   mdiStar,
   mdiViewGrid,
@@ -36,6 +37,9 @@ const Navbar = ({ onToggleDrawer }: IProps) => {
           </IconButton>
         </Box>
 
+        <IconButton component={NavLink} to='/import'>
+          <Icon path={mdiPlus} size={1} />
+        </IconButton>
         <IconButton component={NavLink} to='/explore'>
           <Icon path={mdiCompass} size={1} />
         </IconButton>
